@@ -1,0 +1,46 @@
+<mat-grid-list cols="6" rowHeight="200px">
+
+       
+<div class="mainContiner" id="wrap">
+    <mat-grid-tile [colspan]="2" [rowspan]="4" [style.background]="'lightblue'">
+        <div id="row2">
+            <div class="sidenav">
+                <mat-vertical-stepper  >
+                    
+                    <mat-step >
+                            <ng-container>
+                                <div >
+                                <p>This Is Side Bar</p>
+                               <button (click)="test()" routerLink="request/test1" routerLinkActive="active" >Component 1</button>
+                               
+                               <br>
+                               <button (click)="test()" routerLink="request/test2" routerLinkActive="active" >Component 2</button>
+                                
+                               
+                            </div>
+                            </ng-container>
+                    </mat-step>
+
+                </mat-vertical-stepper>
+               
+            </div>
+        </div>
+    </mat-grid-tile>
+     <mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="'lightblue'">
+        <div id="header">
+            <mat-toolbar class="toolbar">
+               <p>THIS IS TOOLBAR</p>
+            </mat-toolbar>
+        </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="3" >
+                <div id="header" *ngIf="test_1" >
+                    
+                    <router-outlet></router-outlet>
+                </div>
+                </mat-grid-tile>
+        
+        
+        
+        </div>
+    </mat-grid-list>

@@ -1,0 +1,151 @@
+.cardList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}  
+.cardInner {
+    display: grid;
+    grid-template-areas: "header header" "side content" "footer footer";
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 2px;
+    grid-column-gap: 16px;
+}
+.verticalItems{
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+}
+/* .mat-expanded{
+   background-color:greenyellow;
+} */
+.disablefilter{
+    pointer-events: none;
+    opacity:0.2;
+}
+.contentclass{
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 750px;
+    max-height: 750px;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-sizing: border-box;
+    position:relative;
+}
+.mat-table{
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 750px;
+    max-height:7650px;
+    line-height: 19px;
+    font-size: 5.5px;
+    border-collapse: collapse;
+}
+.contentclass .mat-elevation-z8 {    
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+.contentclass .mat-table.mat-table {
+    min-width: 100%;
+    max-height: 750px;
+}
+
+/* .contentclass {
+    max-height: 500px;
+    overflow: auto;
+  } */
+
+ .mat-header-row {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color:darkgray;
+}
+.mat-header-cell {
+    font-size:20px;
+    color:white;
+}
+.mat-raised-button{
+    background-color: #673ab7;
+  color: white;
+  margin-left: 85%;
+}
+
+p {
+    font-family: Lato;
+}
+.data {
+    display: block;
+    width: 95vw;
+}
+.data .table {
+    width: 100vw;
+    max-width: 100%;
+    overflow: auto;
+    margin-bottom: 10px;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px;
+    background-color: #eee;
+}
+.data .row, .data .header-row {
+    display: table-row;
+    min-height: 36px !important;
+}
+.data .cell, .data .header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    line-break: unset;
+    width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+}
+.data .header-row, .data .header-cell {
+    margin: 0 auto;
+    min-height: 100px !important;
+    text-align: center;
+    vertical-align: middle;
+    align-self: center;
+}
+.data .sort-header {
+    display: flex;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 12pt;
+}
+.data .header-cell {
+    font-weight: bold;
+}
+.icon-bar {
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  
+  .icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+  }
+  
+  .icon-bar a:hover {
+    background-color: #000;
+  }
+  
+  .facebook {
+    background: #3B5998;
+    color: white;
+  }
+  

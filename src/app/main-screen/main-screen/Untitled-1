@@ -1,0 +1,134 @@
+<nav id="sidebar" class="sidebar sidebar-bg">
+
+    
+      <form [formGroup]="form">
+    
+        <div class="sidebar-content">
+          <div class="sidebar-menu">
+
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="allExpandState">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Rows
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                  <div class="verticalItems">
+                    <label flex formArrayName="rows" *ngFor="let row of form.controls.rows.controls; let i = index">
+                      <input type="checkbox" [formControlName]="i">
+                      {{rows[i].name}}
+                    </label>
+                  </div>
+                </mat-panel-description>
+
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Columns
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-panel-description>
+                  <div class="verticalItems">
+                    <label flex formArrayName="columns"
+                      *ngFor="let column of form.controls.columns.controls; let i=index">
+                      <input type="checkbox" [formControl]="column" (change)="disableOther($event.target.checked)"
+                        [formControlName]="i">{{columns[i].name}}<br>
+                    </label>
+                  </div>
+                </mat-panel-description>
+
+              </mat-expansion-panel>
+
+              <mat-expansion-panel [expanded]="allExpandState" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Values
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                  <div class="verticalItems">
+
+                    <label flex formArrayName="aggregators"
+                      *ngFor="let aggregator of form.controls.aggregators.controls; let i=index">
+                      <input type="checkbox" [formControl]="aggregator"
+                        (change)="aggregatorsCheckbox($event.target.checked)"
+                        [formControlName]="i">{{aggregators[i].name}}<br>
+                    </label>
+                    <!-- <label flex formArrayName="aggregators"
+                                      *ngFor="let aggregator of form.controls.aggregators.controls; let i = index">
+                                      <input type="checkbox" [formControlName]="i">
+                                      {{aggregators[i].name}}
+                                  </label> -->
+                  </div>
+                </mat-panel-description>
+
+              </mat-expansion-panel>
+              <mat-expansion-panel class="disablefilter">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Filters
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                  <div class="verticalItems">
+                    <label flex formArrayName="filters"
+                      *ngFor="let filter of form.controls.filters.controls; let i = index">
+                      <input type="checkbox" [formControlName]="i">
+                      {{filters[i].name}}
+                    </label>
+                  </div>
+                </mat-panel-description>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+
+
+          </div>
+
+        </div>
+        <div class="sidebar-footer">
+          <div class="dropdown" dropdown>
+            <div [style.grid-area]="'footer'">
+              <button mat-raised-button [disabled]="!form.valid" (click)="submit()" routerLink="/result"
+                routerLinkActive="active">
+                <strong>Submit</strong></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+ 
+</nav>
+
+<div id="content">
+    <div class="header">
+        <span style="font-size: 20px; margin-left: auto;">Enterprise Sales Clusters</span>
+        <span style="margin-top:-1%;float: right;"><button mat-raised-button color="primary"
+        (click)="exportAsXLSX()">Download as Excel</button></span>
+        
+        </div>
+  <mat-form-field>
+      
+   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div class="contentclass">
+      <mat-progress-bar [color]="utilService.spinnerColor" [mode]="utilService.spinnerMode"
+      [value]="utilService.spinnerValue" [bufferValue]="utilService.spinnerBufferValue"
+      *ngIf="isTableProcess">
+  </mat-progress-bar>
+  
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container *ngFor="let disCol of headers; let colIndex = index" matColumnDef="{{disCol}}">
+        <mat-header-cell *matHeaderCellDef>{{disCol}}</mat-header-cell>
+        <mat-cell *matCellDef="let element "> {{element[disCol]}}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: headers;"></mat-row>
+    </mat-table>
+  </div>
+</div>

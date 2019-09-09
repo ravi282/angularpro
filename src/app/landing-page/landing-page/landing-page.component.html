@@ -1,0 +1,115 @@
+<div id="header">
+    <mat-toolbar color="primary" class="title-center">
+        <!-- This fills the remaining space of the current row -->
+        <span class="example-fill-remaining-space">Enterprise Sales Cluster</span>
+    </mat-toolbar>
+</div>
+<div id="left-sidebar">
+    <form [formGroup]="form">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="allExpandState">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Rows
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <div class="verticalItems">
+                        <label flex formArrayName="rows" *ngFor="let row of form.controls.rows.controls; let i = index">
+                            <input type="checkbox" [formControlName]="i">
+                            {{rows[i].name}}
+                        </label>
+                    </div>
+                </mat-panel-description>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Columns
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-panel-description>
+                    <div class="verticalItems">
+                        <!-- <label flex formArrayName="columns"
+                                    *ngFor="let column of form.controls.columns.controls; let i = index">
+                                    <input type="radio" [formControlName]="i">
+                                    {{columns[i].name}}
+                                </label> -->
+                        <!-- <label flex formArrayName="columns"
+                            *ngFor="let column of form.controls.columns.controls; let i = index">
+                            <input type="checkbox" [disabled]="columns[i].checked" (click)="disableOther(columns[i])"
+                                [formControlName]="i">
+                            {{columns[i].name}}
+                        </label> -->
+
+                        <label  flex formArrayName="columns" *ngFor="let column of form.controls.columns.controls; let i=index">
+                            <input type="checkbox" [formControl]="column"
+                                (change)="disableOther($event.target.checked)"
+                                [formControlName]="i">{{columns[i].name}}<br>
+                        </label>
+                    </div>
+                </mat-panel-description>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel class="disablefilter" [expanded]="allExpandState" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Filters
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <div class="verticalItems">
+                        <label flex formArrayName="filters"
+                            *ngFor="let filter of form.controls.filters.controls; let i = index">
+                            <input type="checkbox" [formControlName]="i">
+                            {{filters[i].name}}
+                        </label>
+                    </div>
+                </mat-panel-description>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="allExpandState" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Aggregators
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <div class="verticalItems">
+                        <label flex formArrayName="aggregators"
+                            *ngFor="let aggregator of form.controls.aggregators.controls; let i = index">
+                            <input type="checkbox" [formControlName]="i">
+                            {{aggregators[i].name}}
+                        </label>
+                    </div>
+                </mat-panel-description>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+        <div [style.grid-area]="'footer'">
+            <button mat-raised-button [disabled]="!form.valid" (click)="submit()" routerLink="/result"
+                routerLinkActive="active">
+                <strong>Submit</strong></button>
+        </div>
+    </form>
+</div>
+<div id="content">
+    <div>
+    <button mat-raised-button color="primary" (click)="exportAsXLSX()">Download</button>
+    </div>
+    <div class="contentclass">
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container *ngFor="let disCol of headers; let colIndex = index" matColumnDef="{{disCol}}">
+                <mat-header-cell *matHeaderCellDef>{{disCol}}</mat-header-cell>
+                <mat-cell *matCellDef="let element "> {{element[disCol]}}
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: headers;"></mat-row>
+        </mat-table>
+    </div>
+</div>

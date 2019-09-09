@@ -1,0 +1,46 @@
+<div class="logincard card shadow-lg p-3 mb-5 bg-white">
+    <form [formGroup]="loginForm" class="rounded">
+        <div>
+            <div>
+                <mat-progress-bar [color]="utilService.spinnerColor" [mode]="utilService.spinnerMode"
+                    [value]="utilService.spinnerValue" [bufferValue]="utilService.spinnerBufferValue"
+                    *ngIf="isLoginProcess">
+                </mat-progress-bar>
+                <mat-toolbar class="title-center">
+                    <span class="title-center">LOGIN NOW</span>
+                </mat-toolbar>
+            </div>
+            <mat-form-field class="full-width-field">
+                <input tabindex="1" type="text" placeholder="Email" matInput formControlName="email_id">
+                <mat-icon class="material-icons-outlined" matSuffix><img src="../../assets/images/email.svg"></mat-icon>
+                <mat-error *ngIf="email_id.hasError('required')">{{authUtil.getRequiredError('Email')}}</mat-error>
+                <mat-error *ngIf="email_id.hasError('email')">{{authUtil.getEmailError()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="full-width-field">
+                <input tabindex="2" type="password" placeholder="Password" maxlength="15" matInput
+                    formControlName="password">
+                <mat-icon class="material-icons-outlined" matSuffix><img src="../../assets/images/password.svg">
+                </mat-icon>
+                <mat-error *ngIf="password.hasError('required')">{{authUtil.getRequiredError('Password')}}</mat-error>
+                <mat-error *ngIf="password.hasError('minlength')">{{authUtil.getMinlengthError()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <div class="forgot">
+                forgot password
+            </div>
+        </div>
+        <div>
+            <button mat-raised-button class="loginbutton" [disabled]='loginForm.invalid'
+                (keyup.ENTER)="$event.stopPropagation();login()"
+                (click)="$event.stopPropagation();login()">LOGIN</button>
+        </div>
+        <div>
+            <div class="singupdiv">
+                Don’t have an Account?<span class="singup"><a href=""> SIGN UP</a></span>
+            </div>
+        </div>
+    </form>
+</div>

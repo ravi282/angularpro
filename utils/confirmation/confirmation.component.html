@@ -1,0 +1,15 @@
+<h1 class="p-title" mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <p class="p-message">
+        {{data.message}}
+        <br>
+        <span *ngIf="data.note">
+            <b>{{data.note}}</b>
+        </span>
+    </p>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" >YES</button>
+    <button mat-button (click)="$event.stopPropagation();cancel()">NO</button>
+</div>

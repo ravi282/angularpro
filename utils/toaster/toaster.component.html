@@ -1,0 +1,6 @@
+<span>
+    <button mat-icon-button (click)="$event.stopPropagation();closeSnackbar()" align="right" style="float: right;margin-top: -10px;">
+      <mat-icon matTooltip="close">close</mat-icon>
+    </button>
+    <span class="p-message">{{data.message }}</span>
+  </span>
